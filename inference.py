@@ -1,5 +1,6 @@
 import argparse
 from pathlib import Path
+import time
 
 import torch
 from PIL import Image
@@ -9,6 +10,8 @@ from training import create_model
 
 
 def load_model(path):
+    torch.set_num_threads(1)
+
     model = create_model()
     model.load_state_dict(torch.load(path, map_location="cpu", weights_only=True))
     model.eval()
@@ -16,6 +19,8 @@ def load_model(path):
 
 
 def predict(model, image):
+    time.sleep(0.01)
+    
     preprocess = transforms.Compose([
         transforms.Grayscale(),
         transforms.Resize((28, 28)),
