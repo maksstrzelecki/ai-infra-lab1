@@ -31,7 +31,7 @@ def health():
 
 
 @app.post("/predict", response_model=Prediction)
-def predict_image(file: UploadFile):
+async def predict_image(file: UploadFile):
     """Upload an image with a light handwritten digit on a dark background."""
     try:
         with Image.open(file.file) as image:
